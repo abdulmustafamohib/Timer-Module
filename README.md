@@ -26,15 +26,15 @@ This module provides a lightweight and testable interface to read elapsed system
 ## 🛠 Dependencies
 This module depends on:
 
-STM32 HAL drivers — for integration with STM32 hardware timers
+- STM32 HAL drivers — for integration with STM32 hardware timers
 
-FFF — for mocking HAL function calls during testing
+- FFF — for mocking HAL function calls during testing
 
-Google Test (GTest) — for writing and executing unit tests
+- Google Test (GTest) — for writing and executing unit tests
 
-rocketlib/include/common.h — provides project-wide enums like W_SUCCESS, W_FAILURE, etc.
+- rocketlib/include/common.h — provides project-wide enums like W_SUCCESS, W_FAILURE, etc.
 
-These dependencies enable both embedded integration and fully off-target testability.
+- These dependencies enable both embedded integration and fully off-target testability.
 
 ---
 
@@ -43,13 +43,13 @@ w_status_t timer_get_ms(float *ms)
 Retrieves system uptime in milliseconds.
 
 Behavior:
-If ms == NULL: returns W_INVALID_PARAM
+- If ms == NULL: returns W_INVALID_PARAM
 
-If timer is not running (HAL_TIM_State != BUSY) or not initialized: returns W_FAILURE
+- If timer is not running (HAL_TIM_State != BUSY) or not initialized: returns W_FAILURE
 
-If successful: stores converted time (ticks * 0.1f) in *ms and returns W_SUCCESS
+- If successful: stores converted time (ticks * 0.1f) in *ms and returns W_SUCCESS
 
-This function is designed to safely run in real-time and protect against invalid calls.
+- This function is designed to safely run in real-time and protect against invalid calls.
 
 ---
 
@@ -58,12 +58,12 @@ Unit tests are implemented using Google Test and FFF (Fake Function Framework) t
 
 Test cases include:
 
-❌ NULL pointer handling
+- ❌ NULL pointer handling
 
-❌ Uninitialized timer (htim2.Instance == NULL)
+- ❌ Uninitialized timer (htim2.Instance == NULL)
 
-❌ Timer not running (wrong HAL state)
+- ❌ Timer not running (wrong HAL state)
 
-✅ Successful time retrieval (e.g., 1000 ticks → 100.0ms)
+- ✅ Successful time retrieval (e.g., 1000 ticks → 100.0ms)
 
-✅ Upper bound test (e.g., UINT32_MAX)
+- ✅ Upper bound test (e.g., UINT32_MAX)
